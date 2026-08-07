@@ -21,9 +21,14 @@ public final class KeyBindingHandler {
         "key.categories.universalrandomizer"
     );
 
+    private static boolean registered = false;
+
     private KeyBindingHandler() {}
 
-    public static void register() {
+    public static synchronized void register() {
+        if (registered) return;
+        registered = true;
+
         KeyMappingRegistry.register(OPEN_GUI_KEY);
 
         ClientTickEvent.CLIENT_POST.register(client -> {
