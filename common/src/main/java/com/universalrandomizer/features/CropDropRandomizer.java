@@ -23,10 +23,10 @@ public final class CropDropRandomizer {
             || block instanceof NetherWartBlock
             || block instanceof CocoaBlock
             || block instanceof SweetBerryBushBlock
-            || block instanceof MelonBlock
-            || block instanceof PumpkinBlock
             || block instanceof SugarCaneBlock
             || block instanceof CactusBlock
+            || block == Blocks.MELON
+            || block == Blocks.PUMPKIN
             || block.getClass().getSimpleName().toLowerCase().contains("crop");
     }
 

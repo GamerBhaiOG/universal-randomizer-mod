@@ -145,7 +145,7 @@ public class RandomizerHubScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics);
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
 
         // Header Title
         graphics.drawCenteredString(this.font, "§b§lUniversal Randomizer Dashboard", this.width / 2, 10, 0xFFFFFF);

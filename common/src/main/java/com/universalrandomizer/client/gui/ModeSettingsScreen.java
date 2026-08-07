@@ -118,7 +118,7 @@ public class ModeSettingsScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics);
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
 
         graphics.drawCenteredString(this.font, "§b§lConfigure: " + mode.getDisplayName(), this.width / 2, 15, 0xFFFFFF);
         graphics.drawCenteredString(this.font, "§7" + mode.getDescription(), this.width / 2, 30, 0xAAAAAA);

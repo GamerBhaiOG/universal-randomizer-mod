@@ -151,7 +151,7 @@ public class RandomizerManager {
         long seed = config.getEffectiveSeed(RandomizerMode.CRAFTING);
         List<ResourceLocation> recipeIds = new ArrayList<>(
             server.getRecipeManager().getRecipes().stream()
-                .map(r -> r.getId())
+                .map(r -> r.id())
                 .toList()
         );
         Collections.sort(recipeIds);
