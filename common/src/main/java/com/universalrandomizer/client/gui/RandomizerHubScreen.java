@@ -2,6 +2,7 @@ package com.universalrandomizer.client.gui;
 
 import com.universalrandomizer.config.RandomizerMode;
 import com.universalrandomizer.core.RandomizerManager;
+import com.universalrandomizer.network.ClientConfigCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * Main Inventory-style GUI dashboard for Universal Randomizer.
  * Clicking the main mode card toggles it ON/OFF directly.
- * Clicking the square gear button [⚙] opens the detailed settings screen.
+ * Clicking the square settings button [S] opens the detailed settings screen.
  */
 public class RandomizerHubScreen extends Screen {
 
@@ -80,8 +81,8 @@ public class RandomizerHubScreen extends Screen {
                 b.setMessage(Component.literal("     " + mode.getDisplayName() + (newState ? " §a[ON]" : " §c[OFF]")));
             }).bounds(startX, y, CARD_WIDTH, CARD_HEIGHT).build());
 
-            // 2. Square Gear Settings Button [⚙] (Opens ModeSettingsScreen)
-            this.addRenderableWidget(Button.builder(Component.literal("⚙"), b -> {
+            // 2. Square Settings Button [S] (Opens ModeSettingsScreen)
+            this.addRenderableWidget(Button.builder(Component.literal("[S]"), b -> {
                 if (this.minecraft != null) {
                     this.minecraft.setScreen(new ModeSettingsScreen(this, mode));
                 }
@@ -92,14 +93,14 @@ public class RandomizerHubScreen extends Screen {
         int actionY = this.height - 28;
 
         // 1. Profiles Button
-        this.addRenderableWidget(Button.builder(Component.literal("📂 Profiles"), b -> {
+        this.addRenderableWidget(Button.builder(Component.literal("Profiles"), b -> {
             if (this.minecraft != null) {
                 this.minecraft.setScreen(new ProfileManagerScreen(this));
             }
         }).bounds(centerX - 195, actionY, 90, 20).build());
 
         // 2. Weights Button
-        this.addRenderableWidget(Button.builder(Component.literal("⚖️ Weights"), b -> {
+        this.addRenderableWidget(Button.builder(Component.literal("Weights"), b -> {
             if (this.minecraft != null) {
                 this.minecraft.setScreen(new WeightConfigScreen(this));
             }
@@ -107,12 +108,12 @@ public class RandomizerHubScreen extends Screen {
 
         // 3. Debug Toggle Button
         boolean isDebug = isDebugEnabled();
-        Component debugLabel = Component.literal(isDebug ? "🐛 Debug: §aON" : "🐛 Debug: §cOFF");
+        Component debugLabel = Component.literal(isDebug ? "Debug: §aON" : "Debug: §cOFF");
         this.addRenderableWidget(Button.builder(debugLabel, b -> {
             boolean nextState = !isDebugEnabled();
             com.universalrandomizer.util.RandomizerLogger.setDebugEnabled(nextState);
             sendCommand("randomizer debug " + (nextState ? "on" : "off"));
-            b.setMessage(Component.literal(nextState ? "🐛 Debug: §aON" : "🐛 Debug: §cOFF"));
+            b.setMessage(Component.literal(nextState ? "Debug: §aON" : "Debug: §cOFF"));
         }).bounds(centerX - 5, actionY, 100, 20).build());
 
         // 4. Done / Close Button
@@ -128,15 +129,27 @@ public class RandomizerHubScreen extends Screen {
     }
 
     private boolean isModeEnabled(RandomizerMode mode) {
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        return mgr != null && mgr.isInitialized() && mgr.isEnabled(mode);
+        if (ClientConfigCache.isSynced()) {
+            return ClientConfigCache.isEnabled(mode);
+        }
+        try {
+            RandomizerManager mgr = RandomizerManager.getInstance();
+            return mgr != null && mgr.isInitialized() && mgr.isEnabled(mode);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void setModeEnabledLocal(RandomizerMode mode, boolean enabled) {
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        if (mgr != null && mgr.getConfig() != null) {
-            mgr.getConfig().setEnabled(mode, enabled);
+        if (ClientConfigCache.isSynced()) {
+            ClientConfigCache.setEnabled(mode, enabled);
         }
+        try {
+            RandomizerManager mgr = RandomizerManager.getInstance();
+            if (mgr != null && mgr.getConfig() != null) {
+                mgr.getConfig().setEnabled(mode, enabled);
+            }
+        } catch (Exception ignored) {}
     }
 
     private boolean isDebugEnabled() {
@@ -149,7 +162,7 @@ public class RandomizerHubScreen extends Screen {
 
         // Header Title
         graphics.drawCenteredString(this.font, "§b§lUniversal Randomizer Dashboard", this.width / 2, 10, 0xFFFFFF);
-        graphics.drawCenteredString(this.font, "§7Click card to toggle ON/OFF directly. Click [⚙] for advanced mode settings.", this.width / 2, 22, 0xAAAAAA);
+        graphics.drawCenteredString(this.font, "§7Click card to toggle ON/OFF directly. Click [S] for advanced mode settings.", this.width / 2, 22, 0xAAAAAA);
 
         super.render(graphics, mouseX, mouseY, partialTick);
 
