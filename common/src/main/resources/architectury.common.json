@@ -1,0 +1,7 @@
+{
+  "entrypoints": {
+    "main": [
+      "com.universalrandomizer.UniversalRandomizerCommon::init"
+    ]
+  }
+}

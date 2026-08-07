@@ -1,0 +1,51 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+issueTrackerURL="https://github.com/yourname/universal-randomizer/issues"
+
+[[mods]]
+    modId="universalrandomizer"
+    version="${version}"
+    displayName="Universal Randomizer"
+    description='''
+        Randomize every Minecraft gameplay system.
+        Supports vanilla and modded content automatically.
+        Works with any installed mod without compatibility updates.
+    '''
+    logoFile="assets/universalrandomizer/icon.png"
+    authors="YourName"
+    displayURL="https://github.com/yourname/universal-randomizer"
+
+[[mixins]]
+    config="universalrandomizer.mixins.json"
+
+[[mixins]]
+    config="universalrandomizer.forge.mixins.json"
+
+[[dependencies.universalrandomizer]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47.2.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.universalrandomizer]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.universalrandomizer]]
+    modId="architectury"
+    mandatory=true
+    versionRange="[9.1.12,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.universalrandomizer]]
+    modId="cloth_config"
+    mandatory=true
+    versionRange="[11.1.136,)"
+    ordering="NONE"
+    side="BOTH"

@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "com.universalrandomizer.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "RecipeMixin",
+    "PotionBrewingMixin",
+    "AbstractFurnaceBlockEntityMixin",
+    "ResultContainerMixin",
+    "BlockDropMixin",
+    "LivingEntityDropMixin",
+    "ServerLevelSpawnMixin",
+    "BlockItemPlacementMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

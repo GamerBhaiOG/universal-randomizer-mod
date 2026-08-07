@@ -1,0 +1,6 @@
+{
+  "type": "block",
+  "source": "minecraft:stone",
+  "target": "minecraft:diamond",
+  "weight": 0
+}
