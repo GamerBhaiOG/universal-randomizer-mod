@@ -149,34 +149,15 @@ public class RandomizerManager {
     private void generateCraftingMappings() {
         List<ResourceLocation> itemPool = scanner.getItemPool();
         long seed = config.getEffectiveSeed(RandomizerMode.CRAFTING);
-        List<ResourceLocation> recipeIds = new ArrayList<>();
-        for (Object r : server.getRecipeManager().getRecipes()) {
-            ResourceLocation id = getRecipeId(r);
-            if (id != null) {
-                recipeIds.add(id);
-            }
-        }
+        List<ResourceLocation> recipeIds = new ArrayList<>(
+            server.getRecipeManager().getRecipes().stream()
+                .map(r -> r.getId())
+                .toList()
+        );
         Collections.sort(recipeIds);
         Map<ResourceLocation, ResourceLocation> generated = generateCrossPool(recipeIds, itemPool, seed);
         table.loadGenerated(table.getCraftingOutputs(), generated);
         RandomizerLogger.debug("Crafting: {} recipe mappings", generated.size());
-    }
-
-    private ResourceLocation getRecipeId(Object recipeObj) {
-        if (recipeObj == null) return null;
-        try {
-            var idMethod = recipeObj.getClass().getMethod("id");
-            Object res = idMethod.invoke(recipeObj);
-            if (res instanceof ResourceLocation rl) return rl;
-        } catch (Exception ignored) {}
-
-        try {
-            var getIdMethod = recipeObj.getClass().getMethod("getId");
-            Object res = getIdMethod.invoke(recipeObj);
-            if (res instanceof ResourceLocation rl) return rl;
-        } catch (Exception ignored) {}
-
-        return null;
     }
 
     private void generateSmeltingMappings() {

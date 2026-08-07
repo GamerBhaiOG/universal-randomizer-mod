@@ -45,15 +45,4 @@ public final class ClientConfigCache {
     public static RandomizerConfig getConfig() { return clientConfig; }
     public static MappingTable getTable()      { return clientTable; }
     public static boolean hasConfig()          { return clientConfig != null; }
-    public static boolean isSynced()           { return clientConfig != null; }
-
-    public static boolean isEnabled(com.universalrandomizer.config.RandomizerMode mode) {
-        return clientConfig != null && clientConfig.isEnabled(mode);
-    }
-
-    public static void setEnabled(com.universalrandomizer.config.RandomizerMode mode, boolean enabled) {
-        if (clientConfig != null) {
-            clientConfig.setEnabled(mode, enabled);
-        }
-    }
 }

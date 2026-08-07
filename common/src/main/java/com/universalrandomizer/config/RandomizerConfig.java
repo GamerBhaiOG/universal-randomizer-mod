@@ -17,7 +17,7 @@ public class RandomizerConfig {
     private final Map<RandomizerMode, ModeConfig> modes = new EnumMap<>(RandomizerMode.class);
 
     /**
-     * Creates a config with all modes enabled by default for maximum fun.
+     * Creates a config with only MINING_DROPS enabled by default.
      */
     public RandomizerConfig() {
         for (RandomizerMode mode : RandomizerMode.values()) {
