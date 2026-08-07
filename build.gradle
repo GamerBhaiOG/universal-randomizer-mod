@@ -32,17 +32,17 @@ subprojects {
         archivesName = project.archives_base_name + "-" + project.name
     }
 
-    // Force Java 17 toolchain so builds succeed even when JDK 23 is active
+    // Force Java 21 toolchain for Minecraft 1.21+
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
+            languageVersion = JavaLanguageVersion.of(21)
         }
         withSourcesJar()
     }
 
     compileJava {
         options.encoding = "UTF-8"
-        options.release = 17
+        options.release = 21
     }
 
     loom {

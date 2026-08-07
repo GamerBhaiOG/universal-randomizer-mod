@@ -12,7 +12,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootDataType;
 
 import java.util.*;
@@ -102,7 +101,7 @@ public class RandomizerManager {
     public void reloadDatapacks() {
         if (!initialized) return;
         RandomizerLogger.info("RandomizerManager: datapack reload — re-scanning loot tables.");
-        scanner.scan(server.getLootData());
+        scanner.scan(server != null ? server.reloadableRegistries() : null);
         generateChestLootMappings();
     }
 

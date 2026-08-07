@@ -130,12 +130,12 @@ public final class MappingSerializer {
             if (root.has("weightedMappings")) {
                 JsonObject weighted = root.getAsJsonObject("weightedMappings");
                 for (Map.Entry<String, JsonElement> entry : weighted.entrySet()) {
-                    ResourceLocation source = new ResourceLocation(entry.getKey());
+                    ResourceLocation source = ResourceLocation.parse(entry.getKey());
                     List<WeightedEntry<ResourceLocation>> entries = new ArrayList<>();
                     for (JsonElement el : entry.getValue().getAsJsonArray()) {
                         JsonObject obj = el.getAsJsonObject();
                         entries.add(new WeightedEntry<>(
-                            new ResourceLocation(obj.get("item").getAsString()),
+                            ResourceLocation.parse(obj.get("item").getAsString()),
                             obj.get("weight").getAsInt()
                         ));
                     }
@@ -162,8 +162,8 @@ public final class MappingSerializer {
         JsonObject obj = root.getAsJsonObject(key);
         for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
             try {
-                target.put(new ResourceLocation(entry.getKey()),
-                           new ResourceLocation(entry.getValue().getAsString()));
+                target.put(ResourceLocation.parse(entry.getKey()),
+                           ResourceLocation.parse(entry.getValue().getAsString()));
             } catch (Exception ignored) {}
         }
     }

@@ -9,7 +9,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.loot.LootDataManager;
 
 import java.util.*;
 
@@ -78,7 +77,7 @@ public class RegistryScanner {
      *
      * @param lootDataManager the server-side loot data manager (used by caller to enumerate loot table keys)
      */
-    public void scan(LootDataManager lootDataManager) {
+    public void scan(Object lootDataManager) {
         long start = System.currentTimeMillis();
         RandomizerLogger.debug("RegistryScanner: starting registry scan...");
 
