@@ -22,7 +22,7 @@ public class RandomizerConfig {
     public RandomizerConfig() {
         for (RandomizerMode mode : RandomizerMode.values()) {
             modes.put(mode, new ModeConfig());
-            setEnabled(mode, true);
+            setEnabled(mode, mode == RandomizerMode.MINING_DROPS);
         }
     }
 
