@@ -38,7 +38,6 @@ public class RandomizerHubScreen extends Screen {
         MODE_ICONS.put(RandomizerMode.SMELTING,         new ItemStack(Items.FURNACE));
         MODE_ICONS.put(RandomizerMode.BLOCK_PLACEMENT,  new ItemStack(Items.GRASS_BLOCK));
         MODE_ICONS.put(RandomizerMode.ENTITY_SPAWNS,    new ItemStack(Items.PIG_SPAWN_EGG));
-        MODE_ICONS.put(RandomizerMode.STRUCTURE_SPAWNS, new ItemStack(Items.BELL));
         MODE_ICONS.put(RandomizerMode.POTION_BREWING,   new ItemStack(Items.BREWING_STAND));
     }
 

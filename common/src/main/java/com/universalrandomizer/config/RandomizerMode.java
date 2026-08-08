@@ -71,12 +71,6 @@ public enum RandomizerMode {
         "Randomizes which entity type spawns in place of intended spawns.",
         Category.WORLD
     ),
-    STRUCTURE_SPAWNS(
-        "structure_spawns",
-        "Random Structure Spawn",
-        "Randomizes structure generation and structure types across the world.",
-        Category.WORLD
-    ),
 
     // ── Magic / Other modes ────────────────────────────────────────────────────
     POTION_BREWING(

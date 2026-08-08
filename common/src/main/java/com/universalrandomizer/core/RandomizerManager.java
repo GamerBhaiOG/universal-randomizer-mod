@@ -116,7 +116,6 @@ public class RandomizerManager {
         if (isEnabled(RandomizerMode.CHEST_LOOT))       generateChestLootMappings();
         if (isEnabled(RandomizerMode.BLOCK_PLACEMENT))  generateBlockPlacementMappings();
         if (isEnabled(RandomizerMode.CROP_DROPS))       generateCropDropMappings();
-        if (isEnabled(RandomizerMode.STRUCTURE_SPAWNS)) generateStructureSpawnMappings();
     }
 
     // ── Per-mode generators ───────────────────────────────────────────────────
@@ -192,17 +191,6 @@ public class RandomizerManager {
         Map<ResourceLocation, ResourceLocation> generated = generateCrossPool(chestTables, itemPool, seed);
         table.loadGenerated(table.getChestLoot(), generated);
         RandomizerLogger.debug("Chest loot: {} mappings", generated.size());
-    }
-
-    private void generateStructureSpawnMappings() {
-        List<ResourceLocation> structures = new ArrayList<>(
-            server.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.STRUCTURE).keySet()
-        );
-        Collections.sort(structures);
-        long seed = config.getEffectiveSeed(RandomizerMode.STRUCTURE_SPAWNS);
-        Map<ResourceLocation, ResourceLocation> generated = MappingGenerator.generate(structures, seed);
-        table.loadGenerated(table.getStructureSpawns(), generated);
-        RandomizerLogger.debug("Structure spawns: {} mappings", generated.size());
     }
 
     private void generateCropDropMappings() {
@@ -299,10 +287,6 @@ public class RandomizerManager {
 
     public ResourceLocation getCropDrop(ResourceLocation blockKey) {
         return table.lookup(table.getCropDrops(), blockKey, sharedRng);
-    }
-
-    public ResourceLocation getStructureSpawn(ResourceLocation key) {
-        return table.lookup(table.getStructureSpawns(), key, sharedRng);
     }
 
     // ──────────────────────────────────────────────────────────────────────────

@@ -140,7 +140,6 @@ public final class ProfileManager {
             case "World Craze" -> {
                 cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.BLOCK_PLACEMENT, true);
                 cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.ENTITY_SPAWNS, true);
-                cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.STRUCTURE_SPAWNS, true);
                 cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.DEATH_DROPS, true);
                 return cfg;
             }

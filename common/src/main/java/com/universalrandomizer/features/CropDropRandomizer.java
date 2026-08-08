@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -46,9 +48,14 @@ public final class CropDropRandomizer {
             || block instanceof PumpkinBlock
             || block instanceof SugarCaneBlock
             || block instanceof CactusBlock
-            || block instanceof BushBlock
-            || block.getClass().getSimpleName().toLowerCase().contains("crop")
-            || block.getClass().getSimpleName().toLowerCase().contains("bush")) {
+            || block instanceof BushBlock) {
+            return true;
+        }
+
+        String blockName = BuiltInRegistries.BLOCK.getKey(block).getPath().toLowerCase();
+        if (blockName.contains("crop") || blockName.contains("wheat") || blockName.contains("carrot")
+            || blockName.contains("potato") || blockName.contains("beetroot") || blockName.contains("wart")
+            || blockName.contains("berry") || blockName.contains("bush")) {
             return true;
         }
 
@@ -66,28 +73,37 @@ public final class CropDropRandomizer {
      * Applies item-level randomization for crop drops.
      */
     public static ItemStack applyDrop(Block cropBlock, ItemStack original) {
-        if (original == null || original.isEmpty()) return original;
-
         RandomizerManager mgr = RandomizerManager.getInstance();
         if (!mgr.isInitialized() || !mgr.isEnabled(RandomizerMode.CROP_DROPS)) return original;
 
-        ResourceLocation blockKey = BuiltInRegistries.BLOCK.getKey(cropBlock);
-        ResourceLocation itemKey = BuiltInRegistries.ITEM.getKey(original.getItem());
+        ResourceLocation blockKey = cropBlock != null ? BuiltInRegistries.BLOCK.getKey(cropBlock) : null;
+        ResourceLocation itemKey = (original != null && !original.isEmpty()) ? BuiltInRegistries.ITEM.getKey(original.getItem()) : null;
 
-        ResourceLocation lookupKey = blockKey != null ? blockKey : itemKey;
-        if (lookupKey == null) return original;
-
-        ResourceLocation targetKey = mgr.getCropDrop(lookupKey);
-        if (targetKey == null || targetKey.equals(lookupKey)) {
-            targetKey = mgr.getTable().lookup(
-                mgr.getTable().getMiningDrops(), lookupKey, new java.util.Random());
+        ResourceLocation targetKey = null;
+        if (blockKey != null) {
+            targetKey = mgr.getCropDrop(blockKey);
+        }
+        if ((targetKey == null || targetKey.equals(blockKey)) && itemKey != null) {
+            targetKey = mgr.getCropDrop(itemKey);
         }
 
+        if (targetKey == null || targetKey.equals(blockKey) || targetKey.equals(itemKey)) {
+            List<ResourceLocation> pool = mgr.getScanner().getItemPool();
+            if (!pool.isEmpty()) {
+                long seedHash = (blockKey != null ? blockKey.hashCode() : 0) ^ (itemKey != null ? itemKey.hashCode() : 0);
+                targetKey = pool.get(Math.abs((int) seedHash) % pool.size());
+            }
+        }
+
+        if (targetKey == null) return original;
+
         final ResourceLocation finalKey = targetKey;
+        int count = (original != null && !original.isEmpty()) ? Math.max(1, original.getCount()) : 1;
+
         return BuiltInRegistries.ITEM.getOptional(finalKey)
             .map(item -> {
-                ItemStack result = new ItemStack(item, original.getCount());
-                RandomizerLogger.debug("Crop Harvest: {} -> {} (x{})", lookupKey, finalKey, result.getCount());
+                ItemStack result = new ItemStack(item, count);
+                RandomizerLogger.debug("Crop Harvest: block={} item={} -> {} (x{})", blockKey, itemKey, finalKey, count);
                 return result;
             })
             .orElse(original);
