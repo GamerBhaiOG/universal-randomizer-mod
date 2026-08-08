@@ -141,7 +141,7 @@ public final class ProfileManager {
                 cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.BLOCK_PLACEMENT, true);
                 cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.ENTITY_SPAWNS, true);
                 cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.STRUCTURE_SPAWNS, true);
-                cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.WORLD_GEN, true);
+                cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.DEATH_DROPS, true);
                 return cfg;
             }
             default -> { return null; }

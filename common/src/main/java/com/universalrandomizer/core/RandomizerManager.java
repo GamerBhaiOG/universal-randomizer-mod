@@ -117,7 +117,6 @@ public class RandomizerManager {
         if (isEnabled(RandomizerMode.BLOCK_PLACEMENT))  generateBlockPlacementMappings();
         if (isEnabled(RandomizerMode.CROP_DROPS))       generateCropDropMappings();
         if (isEnabled(RandomizerMode.STRUCTURE_SPAWNS)) generateStructureSpawnMappings();
-        if (isEnabled(RandomizerMode.WORLD_GEN))        generateWorldGenMappings();
     }
 
     // ── Per-mode generators ───────────────────────────────────────────────────
@@ -206,12 +205,13 @@ public class RandomizerManager {
         RandomizerLogger.debug("Structure spawns: {} mappings", generated.size());
     }
 
-    private void generateWorldGenMappings() {
+    private void generateCropDropMappings() {
+        List<ResourceLocation> itemPool = scanner.getItemPool();
         List<ResourceLocation> blockPool = scanner.getBlockPool();
-        long seed = config.getEffectiveSeed(RandomizerMode.WORLD_GEN);
-        Map<ResourceLocation, ResourceLocation> generated = MappingGenerator.generate(blockPool, seed);
-        table.loadGenerated(table.getWorldGen(), generated);
-        RandomizerLogger.debug("World gen: {} mappings", generated.size());
+        long seed = config.getEffectiveSeed(RandomizerMode.CROP_DROPS);
+        Map<ResourceLocation, ResourceLocation> generated = generateCrossPool(blockPool, itemPool, seed);
+        table.loadGenerated(table.getCropDrops(), generated);
+        RandomizerLogger.debug("Crop drops: {} mappings", generated.size());
     }
 
     // ──────────────────────────────────────────────────────────────────────────
@@ -255,15 +255,6 @@ public class RandomizerManager {
         Map<ResourceLocation, ResourceLocation> generated = MappingGenerator.generate(blockPool, seed);
         table.loadGenerated(table.getBlockPlacements(), generated);
         RandomizerLogger.debug("Block placement: {} mappings", generated.size());
-    }
-
-    private void generateCropDropMappings() {
-        List<ResourceLocation> itemPool = scanner.getItemPool();
-        List<ResourceLocation> blockPool = scanner.getBlockPool();
-        long seed = config.getEffectiveSeed(RandomizerMode.CROP_DROPS);
-        Map<ResourceLocation, ResourceLocation> generated = generateCrossPool(blockPool, itemPool, seed);
-        table.loadGenerated(table.getCropDrops(), generated);
-        RandomizerLogger.debug("Crop drops: {} mappings", generated.size());
     }
 
     // ──────────────────────────────────────────────────────────────────────────
@@ -312,10 +303,6 @@ public class RandomizerManager {
 
     public ResourceLocation getStructureSpawn(ResourceLocation key) {
         return table.lookup(table.getStructureSpawns(), key, sharedRng);
-    }
-
-    public ResourceLocation getWorldGen(ResourceLocation key) {
-        return table.lookup(table.getWorldGen(), key, sharedRng);
     }
 
     // ──────────────────────────────────────────────────────────────────────────

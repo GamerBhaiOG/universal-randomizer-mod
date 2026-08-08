@@ -89,7 +89,6 @@ public final class MappingSerializer {
         root.add("blockPlacements",  serializeMap(table.getBlockPlacements()));
         root.add("cropDrops",        serializeMap(table.getCropDrops()));
         root.add("structureSpawns",  serializeMap(table.getStructureSpawns()));
-        root.add("worldGen",         serializeMap(table.getWorldGen()));
         root.add("customMappings",   serializeMap(table.getCustomMappings()));
 
         // Weighted mappings
@@ -123,7 +122,6 @@ public final class MappingSerializer {
             loadMap(root, "blockPlacements", table.getBlockPlacements());
             loadMap(root, "cropDrops",       table.getCropDrops());
             loadMap(root, "structureSpawns", table.getStructureSpawns());
-            loadMap(root, "worldGen",        table.getWorldGen());
             loadMap(root, "customMappings",  table.getCustomMappings());
 
             if (root.has("weightedMappings")) {

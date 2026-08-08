@@ -13,8 +13,8 @@
     "BlockItemPlacementMixin",
     "LootTableMixin",
     "FishingHookMixin",
-    "WorldGenRegionMixin",
-    "StructureStartMixin"
+    "StructureStartMixin",
+    "PlayerDropMixin"
   ],
   "injectors": {
     "defaultRequire": 0

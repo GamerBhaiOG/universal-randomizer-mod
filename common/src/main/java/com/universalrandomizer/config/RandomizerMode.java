@@ -37,6 +37,12 @@ public enum RandomizerMode {
         "Randomizes loot found inside generated structures and chests across the world.",
         Category.DROPS
     ),
+    DEATH_DROPS(
+        "death_drops",
+        "Random Death Drops",
+        "Randomizes items dropped from player inventory on death.",
+        Category.DROPS
+    ),
 
     // ── Crafting modes ─────────────────────────────────────────────────────────
     CRAFTING(
@@ -69,12 +75,6 @@ public enum RandomizerMode {
         "structure_spawns",
         "Random Structure Spawn",
         "Randomizes structure generation and structure types across the world.",
-        Category.WORLD
-    ),
-    WORLD_GEN(
-        "world_gen",
-        "Random World Generation",
-        "Randomizes feature generation, ores, trees, and block generation.",
         Category.WORLD
     ),
 

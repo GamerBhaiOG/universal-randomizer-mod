@@ -39,8 +39,6 @@ public class MappingTable {
     private final Map<ResourceLocation, ResourceLocation> cropDrops     = new ConcurrentHashMap<>();
     /** Structure spawn RL → replacement structure RL */
     private final Map<ResourceLocation, ResourceLocation> structureSpawns = new ConcurrentHashMap<>();
-    /** World gen feature/block RL → target feature/block RL */
-    private final Map<ResourceLocation, ResourceLocation> worldGen      = new ConcurrentHashMap<>();
 
     // ── Weighted overrides: source RL → list of weighted targets ──────────────
     private final Map<ResourceLocation, List<WeightedEntry<ResourceLocation>>> weightedMappings =
@@ -68,7 +66,6 @@ public class MappingTable {
     public Map<ResourceLocation, ResourceLocation> getBlockPlacements()   { return blockPlacements; }
     public Map<ResourceLocation, ResourceLocation> getCropDrops()         { return cropDrops; }
     public Map<ResourceLocation, ResourceLocation> getStructureSpawns()   { return structureSpawns; }
-    public Map<ResourceLocation, ResourceLocation> getWorldGen()          { return worldGen; }
 
     // ──────────────────────────────────────────────────────────────────────────
 
@@ -151,7 +148,6 @@ public class MappingTable {
         blockPlacements.clear();
         cropDrops.clear();
         structureSpawns.clear();
-        worldGen.clear();
     }
 
     /** Fully resets all mappings including custom and weighted. */
@@ -184,6 +180,6 @@ public class MappingTable {
              + smeltingOutputs.size() + fishingLoot.size()
              + entitySpawns.size() + potions.size()
              + chestLoot.size() + blockPlacements.size() + cropDrops.size()
-             + structureSpawns.size() + worldGen.size();
+             + structureSpawns.size();
     }
 }

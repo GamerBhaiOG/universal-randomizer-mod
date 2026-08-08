@@ -33,12 +33,12 @@ public class RandomizerHubScreen extends Screen {
         MODE_ICONS.put(RandomizerMode.CROP_DROPS,       new ItemStack(Items.WHEAT));
         MODE_ICONS.put(RandomizerMode.FISHING_LOOT,    new ItemStack(Items.FISHING_ROD));
         MODE_ICONS.put(RandomizerMode.CHEST_LOOT,      new ItemStack(Items.CHEST));
+        MODE_ICONS.put(RandomizerMode.DEATH_DROPS,     new ItemStack(Items.SKELETON_SKULL));
         MODE_ICONS.put(RandomizerMode.CRAFTING,         new ItemStack(Items.CRAFTING_TABLE));
         MODE_ICONS.put(RandomizerMode.SMELTING,         new ItemStack(Items.FURNACE));
         MODE_ICONS.put(RandomizerMode.BLOCK_PLACEMENT,  new ItemStack(Items.GRASS_BLOCK));
         MODE_ICONS.put(RandomizerMode.ENTITY_SPAWNS,    new ItemStack(Items.PIG_SPAWN_EGG));
         MODE_ICONS.put(RandomizerMode.STRUCTURE_SPAWNS, new ItemStack(Items.BELL));
-        MODE_ICONS.put(RandomizerMode.WORLD_GEN,        new ItemStack(Items.OAK_SAPLING));
         MODE_ICONS.put(RandomizerMode.POTION_BREWING,   new ItemStack(Items.BREWING_STAND));
     }
 
