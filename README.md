@@ -1,207 +1,90 @@
-# Universal Randomizer
+# 🎲 Universal Randomizer
+
+[![Forge](https://img.shields.io/badge/Minecraft-Forge_1.20.1-orange.svg)](https://www.curseforge.com/minecraft/mc-mods)
+[![Fabric](https://img.shields.io/badge/Minecraft-Fabric_1.20.1-blue.svg)](https://www.curseforge.com/minecraft/mc-mods)
+[![Java 17](https://img.shields.io/badge/Java-17-brightgreen.svg)](https://www.oracle.com/java/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **Randomize every Minecraft gameplay system — vanilla and modded, automatically.**
 
-Universal Randomizer is a multi-loader Minecraft mod for **Forge 1.20.1** and **Fabric 1.20.1** that lets you randomize 16 different gameplay systems with full automatic support for any installed mod.
+**Universal Randomizer** is the ultimate multi-loader Minecraft mod for **Forge 1.20.1** and **Fabric 1.20.1** that lets you randomize every major gameplay system with full automatic support for any installed mod.
 
 ---
 
-## ✨ Features
+## 🔌 Required Dependencies
 
-| Mode | Description |
-|---|---|
-| Random Mining Drops | Blocks drop random items |
-| Random Mob Drops | Mobs drop random items on death |
-| Random Chest Loot | Dungeon/structure containers get random loot tables |
-| Random Crafting | Recipe outputs are shuffled |
-| Random Smelting | Furnace results are randomized |
-| Random Fishing Loot | Fish, treasure, and junk are randomized |
-| Random Villager Trades | Trade outputs and professions are shuffled |
-| Random Furnace XP | XP per smelt is randomized |
-| Random Block Placement | Placed blocks are swapped |
-| Random Crop Drops | Harvest items are randomized |
-| Random Entity Spawns | Mobs spawn as random entity types |
-| Random Structure Loot | All structure loot tables are shuffled |
-| Random Potion Brewing | Brewing results are randomized |
-| Random Enchantments | Enchanting table gives random enchantments |
-| Random Loot Tables | Global catch-all loot table shuffle |
-| Random Advancement Rewards | Advancement rewards are randomized |
+| Dependency | Forge | Fabric | Link |
+|---|:---:|:---:|---|
+| **Architectury API** | ✅ | ✅ | [Download on CurseForge](https://www.curseforge.com/minecraft/mc-mods/architectury-api) |
+| **Cloth Config API** | ✅ | ✅ | [Download on CurseForge](https://www.curseforge.com/minecraft/mc-mods/cloth-config) |
+| **Fabric API** | ❌ | ✅ | [Download on CurseForge](https://www.curseforge.com/minecraft/mc-mods/fabric-api) |
 
 ---
 
-## 🚀 Installation
+## ✨ Features & Randomizer Modes
 
-### Required Dependencies
-| Dependency | Forge | Fabric |
+| Icon | Mode | ID | Description |
+|:---:|---|---|---|
+| 🌾 | **Random Crop Drops** | `crop_drops` | Harvesting crops (Wheat, Carrots, Potatoes, Beetroots, Nether Wart, Cocoa, Sweet Berries, Melons, Pumpkins, Sugar Cane, Cactus, Torchflowers, Pitcher Plants) yields randomized loot items. |
+| 💀 | **Random Death Drops** | `death_drops` | Items dropped from a player's inventory upon death transform into random items from the item pool. |
+| 📦 | **Random Chest Loot** | `chest_loot` | Dungeon, village, fortress, end city, minecart, and structure chests fill with randomized loot. |
+| ⛏️ | **Random Mining Drops** | `mining_drops` | Breaking blocks in the world drops randomized items. |
+| ⚔️ | **Random Mob Drops** | `mob_drops` | Slaying mobs drops randomized items from the item pool. |
+| 🔨 | **Random Crafting** | `crafting` | Crafting recipes yield randomized output items. |
+| 🔥 | **Random Smelting** | `smelting` | Furnaces, blast furnaces, and smokers output randomized items during continuous bulk smelting. |
+| 🎣 | **Random Fishing Loot** | `fishing_loot` | Reeling in your fishing line yields unexpected fish, treasure, or junk items. |
+| 🧱 | **Random Block Placement** | `block_placement` | Placing a block transforms it into a random block type in the world. |
+| 🐷 | **Random Entity Spawns** | `entity_spawns` | Natural and mob spawner spawns replace intended mobs with random mob types. |
+| 🧪 | **Random Potion Brewing** | `potion_brewing` | Brewing stands produce randomized potion effects and items. |
+
+---
+
+## 🖥️ Modern In-Game Dashboard
+
+Press **`R`** in-game or type `/randomizer` to open the interactive **Universal Randomizer Dashboard**:
+
+- 🔍 **JEI / REI Style Item Picker**: Built-in 3D item grid with live search bar, page counters, and hover tooltips for selecting any item in Minecraft.
+- ⚡ **Instant Presets**: Toggle pre-configured modes with a single click.
+- ⚖️ **Weights & Profiles**: Fine-tune drop probabilities and export custom configurations.
+
+---
+
+## ⚡ Built-in Presets
+
+| Profile | Description | Modes Enabled |
 |---|---|---|
-| [Architectury API](https://www.curseforge.com/minecraft/mc-mods/architectury-api) | ✅ | ✅ |
-| [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) | ✅ | ✅ |
-| [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) | ❌ | ✅ |
-
-Place the built jar and all dependencies in your `mods/` folder.
-
-### Building from Source
-```bash
-# Requires Java 17 and internet access for dependency download
-./gradlew :forge:build   # Outputs to forge/build/libs/
-./gradlew :fabric:build  # Outputs to fabric/build/libs/
-```
+| **Chaos Default** | Pure randomized mayhem across all major modes | Mining, Mob, Chest, Crafting, Smelting, Crop Drops, Spawns, Death Drops |
+| **Classic Randomizer** | Traditional loot-focused randomizer experience | Mining Drops, Mob Drops, Chest Loot |
+| **Peaceful Farmer** | Relaxed gameplay focused on farming and processing | Crop Drops, Fishing Loot, Smelting Outputs |
+| **World Craze** | World and survival mutation chaos | Block Placement, Entity Spawns, Death Drops |
 
 ---
 
-## 🎮 First Launch
+## ⌨️ Controls & Commands
 
-When you create a new world, a **setup screen** will appear letting you:
-- Select which modes to enable
-- Search and filter modes by category
-- Choose randomization type (Seed-based / Pure Random / Per Player / Shared)
-- Apply a preset profile
+### Keybind
+- **`R`** (Default): Opens the Universal Randomizer Hub Dashboard. (Rebindable in `Options -> Controls -> Key Binds -> Universal Randomizer`).
 
----
-
-## ⌨️ Commands
-
-All commands require **OP level 2**.
-
-### Mode Control
-```
-/randomizer mining enable|disable
-/randomizer mobdrops enable|disable
-/randomizer recipe enable|disable
-/randomizer chestloot enable|disable
-/randomizer smelting enable|disable
-/randomizer fishing enable|disable
-/randomizer villager enable|disable
-/randomizer furnacexp enable|disable
-/randomizer blockplacement enable|disable
-/randomizer cropdrops enable|disable
-/randomizer entityspawns enable|disable
-/randomizer structureloot enable|disable
-/randomizer potions enable|disable
-/randomizer enchantments enable|disable
-/randomizer loottables enable|disable
-/randomizer advancements enable|disable
-```
-
-### Global
-```
-/randomizer reset           — Clear and regenerate all mappings
-/randomizer setup           — Re-open the setup screen
-/randomizer debug on|off    — Toggle debug logging
-/randomizer export          — Export mapping to logs/randomizer_export.json
-/randomizer status          — Show enabled modes
-```
-
-### Fixed Mappings
-```
-/randomizer map block minecraft:stone minecraft:diamond
-/randomizer map item minecraft:iron_ore minecraft:netherite_ingot
-/randomizer unmap minecraft:stone
-/randomizer listmap
-```
-
-### Weighted Mappings
-```
-/randomizer weight minecraft:stone minecraft:dirt 70
-/randomizer weight minecraft:stone minecraft:diamond 20
-/randomizer weight minecraft:stone minecraft:netherite_ingot 10
-/randomizer weightclear minecraft:stone
-/randomizer weightlist minecraft:stone
-```
-
-### Profiles
-```
-/randomizer profile save Speedrun
-/randomizer profile load Chaos
-/randomizer profile list
-/randomizer profile delete MyProfile
-/randomizer profile export Speedrun
-```
-
-### Built-in Profiles
-| Profile | Modes Enabled |
-|---|---|
-| Speedrun | Mining, Mob, Chest |
-| Chaos | All 16 modes |
-| Lucky Block | Mining, Chest |
-| Vanilla+ | Mob, Crafting |
-| Hardcore | Mining, Mob, Spawns, Crafting |
-| Streamer Mode | Mining, Mob, Villager, Crafting |
+### Commands
+- `/randomizer` or `/randomizer gui` — Opens the interactive dashboard.
+- `/randomizer toggle <mode>` — Toggles a specific mode on/off in real time.
+- `/randomizer preset <name>` — Loads a pre-configured preset profile.
+- `/randomizer seed set <seed>` — Sets a custom seed for deterministic world randomization.
+- `/randomizer reload` — Reloads configuration files.
 
 ---
 
-## 🗂️ Datapack Support
+## ⚙️ Compatibility & Performance
 
-Create files at `data/<namespace>/randomizer/mappings/<name>.json`:
-
-```json
-{
-  "type": "block",
-  "source": "minecraft:stone",
-  "target": "minecraft:diamond",
-  "weight": 0
-}
-```
-
-For weighted mappings, set `weight > 0` and create multiple files with the same source.
+- **Platforms**: Supports **Forge** (47.4.16+) and **Fabric** (0.92.6+).
+- **Modpack Compatible**: Tested with **JEI**, **REI**, **EMI**, **GeckoLib**, **Sodium**, **Embeddium**, and **Sinytra Connector**.
+- **Crash Prevention**: Features built-in thread safety (`ThreadLocal` flags) and projectile filters to prevent conflicts with weapon and gun mods.
 
 ---
 
-## 🧩 API (for mod developers)
+## 📜 Installation
 
-```java
-// Add to your build.gradle
-dependencies {
-    compileOnly "com.universalrandomizer:universal-randomizer-common:1.0.0"
-}
-```
-
-```java
-import com.universalrandomizer.api.RandomizerAPI;
-import com.universalrandomizer.config.RandomizerMode;
-
-// Check if a mode is enabled
-boolean miningEnabled = RandomizerAPI.isModeEnabled(RandomizerMode.MINING_DROPS);
-
-// Get randomized drop for a block
-ResourceLocation dropKey = RandomizerAPI.getMiningDropKey(Blocks.STONE);
-
-// Exclude your mod's items from randomization
-RandomizerAPI.addToBlocklist(new ResourceLocation("mymod", "special_item"));
-```
-
----
-
-## 📁 World Save Files
-
-```
-world/
-└── randomizer/
-    ├── settings.json    ← Mode config, seeds, custom mappings
-    ├── mapping.json     ← Full generated mapping snapshot
-    └── profiles/
-        └── MyProfile.json
-```
-
----
-
-## ⚡ Performance
-
-- All mappings generated **once** on world load — no per-tick overhead
-- Target: **< 1% TPS loss**
-- Lazy loading of per-player tables
-- Memory-efficient ConcurrentHashMap caches
-
----
-
-## 🔗 Multiplayer
-
-- Host configures modes; clients sync automatically on join
-- No client-side config required for players
-- All commands require OP level 2
-
----
-
-## 📜 License
-
-MIT — see [LICENSE](LICENSE) for details.
+1. Download the version corresponding to your mod loader (**Forge** or **Fabric**).
+2. Install the required dependency mods (**Architectury API**, **Cloth Config**, and **Fabric API** if on Fabric).
+3. Drop the `.jar` files into your `mods/` directory.
+4. Launch Minecraft, press **`R`**, and enjoy!
