@@ -3,22 +3,13 @@ package com.universalrandomizer.forge;
 import com.universalrandomizer.core.RandomizerManager;
 import com.universalrandomizer.features.*;
 import com.universalrandomizer.config.RandomizerMode;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 /**
- * Handles all Forge-specific events and routes them through the feature layer.
- *
- * <p>Events handled here:
- * <ul>
- *   <li>{@link BlockEvent.EntityPlaceEvent} → Block placement randomization</li>
- *   <li>{@link LivingDropsEvent} → Mob drop randomization (post-loot, fallback)</li>
- *   <li>{@link MobSpawnEvent.FinalizeSpawn} → Entity spawn randomization</li>
- *   <li>{@link VillagerTradesEvent} → Villager trade randomization</li>
- * </ul>
+ * Handles Forge-specific block placement event routing.
+ * Entity spawning, drops, smelting, loot tables, and fishing are handled centrally by common mixins.
  */
 public class ForgeEventHandler {
 
@@ -34,28 +25,6 @@ public class ForgeEventHandler {
         BlockState randomized = BlockPlacementRandomizer.applyPlacement(intended);
         if (!randomized.equals(intended)) {
             event.getLevel().setBlock(event.getPos(), randomized, 3);
-        }
-    }
-
-    // ── Entity Spawns ──────────────────────────────────────────────────────────
-
-    @SubscribeEvent
-    public static void onEntitySpawn(MobSpawnEvent.FinalizeSpawn event) {
-        if (event.getLevel().isClientSide()) return;
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        if (!mgr.isInitialized() || !mgr.isEnabled(RandomizerMode.ENTITY_SPAWNS)) return;
-
-        EntityType<?> intended = event.getEntity().getType();
-        EntityType<?> randomized = EntitySpawnRandomizer.applySpawn(intended);
-        if (!randomized.equals(intended)) {
-            var level = event.getLevel();
-            var replacement = randomized.create(level.getLevel());
-            if (replacement != null) {
-                replacement.setPos(event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ());
-                level.getLevel().addFreshEntity(replacement);
-            }
-            event.getEntity().discard();
-            event.setCanceled(true);
         }
     }
 }
