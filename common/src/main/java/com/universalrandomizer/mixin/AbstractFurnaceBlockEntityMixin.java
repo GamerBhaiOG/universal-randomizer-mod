@@ -27,7 +27,7 @@ public class AbstractFurnaceBlockEntityMixin {
         remap = true,
         require = 0
     )
-    private static void universalRandomizer$onBurn(RegistryAccess registryAccess, Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize, CallbackInfoReturnable<Boolean> cir) {
+    private void universalRandomizer$onBurn(RegistryAccess registryAccess, Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize, CallbackInfoReturnable<Boolean> cir) {
         RandomizerManager mgr = RandomizerManager.getInstance();
         if (!mgr.isInitialized() || !mgr.isEnabled(RandomizerMode.SMELTING)) return;
 
