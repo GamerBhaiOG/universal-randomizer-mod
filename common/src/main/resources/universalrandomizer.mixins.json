@@ -13,7 +13,6 @@
     "BlockItemPlacementMixin",
     "LootTableMixin",
     "FishingHookMixin",
-    "StructureStartMixin",
     "PlayerDropMixin"
   ],
   "injectors": {
