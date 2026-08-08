@@ -40,13 +40,17 @@ public final class ChestLootRandomizer {
         ResourceLocation itemKey = BuiltInRegistries.ITEM.getKey(vanillaItem.getItem());
         if (itemKey == null) return vanillaItem;
 
-        ResourceLocation targetKey = mgr.getTable().lookup(
-            mgr.getTable().getMiningDrops(), itemKey, new java.util.Random());
+        ResourceLocation targetKey = mgr.getChestLoot(itemKey);
+        if (targetKey == null || targetKey.equals(itemKey)) {
+            targetKey = mgr.getTable().lookup(
+                mgr.getTable().getMiningDrops(), itemKey, new java.util.Random());
+        }
 
-        return BuiltInRegistries.ITEM.getOptional(targetKey)
+        final ResourceLocation finalKey = targetKey;
+        return BuiltInRegistries.ITEM.getOptional(finalKey)
             .map(item -> {
                 ItemStack result = new ItemStack(item, vanillaItem.getCount());
-                RandomizerLogger.debug("ChestLoot Item: {} -> {}", itemKey, targetKey);
+                RandomizerLogger.debug("ChestLoot Item: {} -> {}", itemKey, finalKey);
                 return result;
             })
             .orElse(vanillaItem);

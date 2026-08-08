@@ -10,7 +10,11 @@
     "BlockDropMixin",
     "LivingEntityDropMixin",
     "ServerLevelSpawnMixin",
-    "BlockItemPlacementMixin"
+    "BlockItemPlacementMixin",
+    "LootTableMixin",
+    "FishingHookMixin",
+    "WorldGenRegionMixin",
+    "StructureStartMixin"
   ],
   "injectors": {
     "defaultRequire": 0
