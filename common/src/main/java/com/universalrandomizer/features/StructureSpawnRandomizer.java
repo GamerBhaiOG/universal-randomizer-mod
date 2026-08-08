@@ -3,9 +3,7 @@ package com.universalrandomizer.features;
 import com.universalrandomizer.config.RandomizerMode;
 import com.universalrandomizer.core.RandomizerManager;
 import com.universalrandomizer.util.RandomizerLogger;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.structure.Structure;
 
 /**
  * Randomizes structure spawn generation across world generation.

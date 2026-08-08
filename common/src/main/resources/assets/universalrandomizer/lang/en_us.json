@@ -49,5 +49,8 @@
   "universalrandomizer.profile.lucky_block": "Lucky Block",
   "universalrandomizer.profile.vanilla_plus": "Vanilla+",
   "universalrandomizer.profile.hardcore": "Hardcore",
-  "universalrandomizer.profile.streamer": "Streamer Mode"
+  "universalrandomizer.profile.streamer": "Streamer Mode",
+
+  "key.categories.universalrandomizer": "Universal Randomizer",
+  "key.universalrandomizer.open_gui": "Open Randomizer GUI"
 }

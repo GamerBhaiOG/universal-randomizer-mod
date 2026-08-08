@@ -3,7 +3,6 @@ package com.universalrandomizer.features;
 import com.universalrandomizer.config.RandomizerMode;
 import com.universalrandomizer.core.RandomizerManager;
 import com.universalrandomizer.util.RandomizerLogger;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;

@@ -8,7 +8,6 @@ import com.universalrandomizer.core.MappingTable;
 import com.universalrandomizer.core.WeightedEntry;
 import net.minecraft.resources.ResourceLocation;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 /**

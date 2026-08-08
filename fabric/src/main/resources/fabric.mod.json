@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "Universal Randomizer",
   "description": "Randomize every Minecraft gameplay system — vanilla and modded.",
-  "authors": ["YourName"],
+  "authors": [
+    "GamerBhai"
+  ],
   "contact": {
     "homepage": "https://github.com/yourname/universal-randomizer",
     "sources": "https://github.com/yourname/universal-randomizer"

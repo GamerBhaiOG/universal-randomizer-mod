@@ -1,6 +1,5 @@
 package com.universalrandomizer.persist;
 
-import com.universalrandomizer.UniversalRandomizerCommon;
 import com.universalrandomizer.config.RandomizerConfig;
 import com.universalrandomizer.core.MappingTable;
 import com.universalrandomizer.platform.PlatformHelper;

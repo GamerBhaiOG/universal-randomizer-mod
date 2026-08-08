@@ -109,6 +109,8 @@ public final class ProfileManager {
         switch (name) {
             case "Default" -> {
                 cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.MINING_DROPS, true);
+                cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.MOB_DROPS, true);
+                cfg.setEnabled(com.universalrandomizer.config.RandomizerMode.CHEST_LOOT, true);
                 return cfg;
             }
             case "Chaos Mode", "Chaos" -> {

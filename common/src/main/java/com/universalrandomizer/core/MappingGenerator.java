@@ -1,7 +1,6 @@
 package com.universalrandomizer.core;
 
 import com.universalrandomizer.util.RandomizerLogger;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
 

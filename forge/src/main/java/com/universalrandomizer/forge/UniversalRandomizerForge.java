@@ -28,5 +28,9 @@ public class UniversalRandomizerForge {
         GLM_SERIALIZERS.register(modEventBus);
 
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(ForgeEventHandler.class);
+
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
+            com.universalrandomizer.client.KeyBindingHandler.register();
+        }
     }
 }

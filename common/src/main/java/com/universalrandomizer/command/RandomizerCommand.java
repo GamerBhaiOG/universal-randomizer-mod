@@ -1,7 +1,6 @@
 package com.universalrandomizer.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.universalrandomizer.config.ModeConfig;
@@ -9,7 +8,6 @@ import com.universalrandomizer.config.RandomizerMode;
 import com.universalrandomizer.core.RandomizerManager;
 import com.universalrandomizer.persist.PersistenceManager;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;

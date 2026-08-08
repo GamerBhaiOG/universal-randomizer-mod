@@ -5,7 +5,6 @@ import com.universalrandomizer.core.RandomizerManager;
 import com.universalrandomizer.core.RegistryScanner;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 /**

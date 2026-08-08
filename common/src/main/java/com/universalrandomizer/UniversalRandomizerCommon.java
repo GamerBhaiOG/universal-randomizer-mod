@@ -6,8 +6,6 @@ import com.universalrandomizer.util.RandomizerLogger;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
-import dev.architectury.platform.Platform;
-import dev.architectury.utils.Env;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,11 +33,6 @@ public final class UniversalRandomizerCommon {
         // Register commands
         CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) ->
             RandomizerCommand.register(dispatcher));
-
-        // Client-side keybindings
-        if (Platform.getEnv() == net.fabricmc.api.EnvType.CLIENT) {
-            com.universalrandomizer.client.KeyBindingHandler.register();
-        }
 
         // Server lifecycle hooks
         LifecycleEvent.SERVER_STARTED.register(server ->

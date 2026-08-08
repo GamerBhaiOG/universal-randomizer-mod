@@ -1,16 +1,12 @@
 package com.universalrandomizer.gui;
 
-import com.universalrandomizer.config.ModeConfig;
 import com.universalrandomizer.config.RandomizerConfig;
 import com.universalrandomizer.config.RandomizerMode;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -51,7 +47,6 @@ public class RandomizerSetupScreen extends Screen {
     private String searchQuery = "";
     private RandomizerMode.Category activeCategory = null; // null = All
     private int scrollOffset = 0;
-    private final Map<RandomizerMode, Checkbox> checkboxes = new EnumMap<>(RandomizerMode.class);
 
     // ──────────────────────────────────────────────────────────────────────────
 
@@ -146,7 +141,6 @@ public class RandomizerSetupScreen extends Screen {
         // Content area clipping (manual row rendering)
         int contentY = panelY + HEADER_HEIGHT;
         int contentMaxY = panelY + PANEL_HEIGHT - FOOTER_HEIGHT;
-        int contentHeight = contentMaxY - contentY;
 
         List<RandomizerMode> filtered = getFilteredModes();
         int startY = contentY - scrollOffset;
@@ -238,6 +232,13 @@ public class RandomizerSetupScreen extends Screen {
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         scrollOffset = Math.max(0, scrollOffset - (int)(delta * ROW_HEIGHT));
         return true;
+    }
+
+    @Override
+    public void onClose() {
+        if (this.minecraft != null) {
+            this.minecraft.setScreen(this.parent);
+        }
     }
 
     @Override

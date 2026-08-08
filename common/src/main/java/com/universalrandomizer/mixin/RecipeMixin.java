@@ -4,7 +4,6 @@ import com.universalrandomizer.features.CraftingRandomizer;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface RecipeMixin {
 
     @Inject(method = "assemble", at = @At("RETURN"), cancellable = true, remap = true, require = 0)
-    @SuppressWarnings("unchecked")
     private <C extends Container> void universalRandomizer$onAssemble(
             C container,
             net.minecraft.core.RegistryAccess registryAccess,

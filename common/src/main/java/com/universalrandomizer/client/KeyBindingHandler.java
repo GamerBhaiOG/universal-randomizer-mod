@@ -5,7 +5,6 @@ import com.universalrandomizer.client.gui.RandomizerHubScreen;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import dev.architectury.event.events.client.ClientTickEvent;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -21,9 +20,14 @@ public final class KeyBindingHandler {
         "key.categories.universalrandomizer"
     );
 
+    private static boolean registered = false;
+
     private KeyBindingHandler() {}
 
     public static void register() {
+        if (registered) return;
+        registered = true;
+
         KeyMappingRegistry.register(OPEN_GUI_KEY);
 
         ClientTickEvent.CLIENT_POST.register(client -> {

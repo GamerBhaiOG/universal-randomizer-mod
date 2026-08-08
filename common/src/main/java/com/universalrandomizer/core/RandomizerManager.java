@@ -1,17 +1,11 @@
 package com.universalrandomizer.core;
 
-import com.universalrandomizer.config.ModeConfig;
 import com.universalrandomizer.config.RandomizerConfig;
 import com.universalrandomizer.config.RandomizerMode;
-import com.universalrandomizer.persist.MappingSerializer;
 import com.universalrandomizer.persist.PersistenceManager;
 import com.universalrandomizer.util.RandomizerLogger;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootDataType;
 
