@@ -6,7 +6,7 @@ import com.universalrandomizer.util.RandomizerLogger;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+
 
 /**
  * Randomizes crafting recipe outputs across Crafting Table, Inventory 2x2,
@@ -44,8 +44,7 @@ public final class CraftingRandomizer {
             .orElse(vanillaOutput);
     }
 
-    /** Legacy recipe-based lookup helper. */
-    public static ItemStack applyOutput(Recipe<?> recipe, ItemStack vanillaOutput) {
+    public static ItemStack applyOutput(Object recipe, ItemStack vanillaOutput) {
         return randomizeStack(vanillaOutput);
     }
 }

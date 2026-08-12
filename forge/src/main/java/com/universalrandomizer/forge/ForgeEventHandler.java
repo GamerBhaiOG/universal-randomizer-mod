@@ -3,13 +3,17 @@ package com.universalrandomizer.forge;
 import com.universalrandomizer.core.RandomizerManager;
 import com.universalrandomizer.features.*;
 import com.universalrandomizer.config.RandomizerMode;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
 /**
- * Handles Forge-specific block placement event routing.
- * Entity spawning, drops, smelting, loot tables, and fishing are handled centrally by common mixins.
+ * Handles Forge-specific event routing (block placement, death drops).
+ * Entity spawning, mob drops, smelting, loot tables, and fishing are handled centrally by common mixins / GLM.
  */
 public class ForgeEventHandler {
 
@@ -27,4 +31,25 @@ public class ForgeEventHandler {
             event.getLevel().setBlock(event.getPos(), randomized, 3);
         }
     }
+
+    // ── Death Drops ────────────────────────────────────────────────────────────
+
+    @SubscribeEvent
+    public static void onLivingDrops(LivingDropsEvent event) {
+        if (event.isCanceled() || event.getEntity().level().isClientSide()) return;
+        if (!(event.getEntity() instanceof Player)) return;
+
+        RandomizerManager mgr = RandomizerManager.getInstance();
+        if (!mgr.isInitialized() || !mgr.isEnabled(RandomizerMode.DEATH_DROPS)) return;
+
+        for (ItemEntity drop : event.getDrops()) {
+            ItemStack stack = drop.getItem();
+            ItemStack randomized = DeathDropRandomizer.randomizeDeathDrop(stack);
+            if (!randomized.equals(stack)) {
+                drop.setItem(randomized);
+            }
+        }
+    }
 }
+
+

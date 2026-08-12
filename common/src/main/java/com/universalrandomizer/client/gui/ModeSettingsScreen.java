@@ -86,11 +86,17 @@ public class ModeSettingsScreen extends Screen {
     }
 
     private boolean isModeEnabled() {
+        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
+            return com.universalrandomizer.network.ClientConfigCache.getConfig().isEnabled(mode);
+        }
         RandomizerManager mgr = RandomizerManager.getInstance();
         return mgr != null && mgr.isInitialized() && mgr.isEnabled(mode);
     }
 
     private String getModeType() {
+        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
+            return com.universalrandomizer.network.ClientConfigCache.getConfig().getMode(mode).getRandomType().name();
+        }
         RandomizerManager mgr = RandomizerManager.getInstance();
         if (mgr != null && mgr.isInitialized()) {
             return mgr.getConfig().getMode(mode).getRandomType().name();
@@ -99,6 +105,9 @@ public class ModeSettingsScreen extends Screen {
     }
 
     private long getModeSeed() {
+        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
+            return com.universalrandomizer.network.ClientConfigCache.getConfig().getMode(mode).getSeed();
+        }
         RandomizerManager mgr = RandomizerManager.getInstance();
         if (mgr != null && mgr.isInitialized()) {
             return mgr.getConfig().getMode(mode).getSeed();
@@ -118,7 +127,7 @@ public class ModeSettingsScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics);
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
 
         graphics.drawCenteredString(this.font, "§b§lConfigure: " + mode.getDisplayName(), this.width / 2, 15, 0xFFFFFF);
         graphics.drawCenteredString(this.font, "§7" + mode.getDescription(), this.width / 2, 30, 0xAAAAAA);

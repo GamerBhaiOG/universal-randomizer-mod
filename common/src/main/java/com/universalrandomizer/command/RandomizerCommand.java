@@ -78,6 +78,26 @@ public final class RandomizerCommand {
             return 1;
         }));
 
+        root.then(literal("enableall").requires(src -> src.hasPermission(2)).executes(ctx -> {
+            RandomizerManager mgr = RandomizerManager.getInstance();
+            for (RandomizerMode m : RandomizerMode.values()) {
+                mgr.getConfig().setEnabled(m, true);
+            }
+            PersistenceManager.saveConfig(ctx.getSource().getServer(), mgr.getConfig());
+            ctx.getSource().sendSuccess(() -> Component.literal("§b§l[Universal Randomizer] §aAll randomizer modes ENABLED!"), true);
+            return 1;
+        }));
+
+        root.then(literal("disableall").requires(src -> src.hasPermission(2)).executes(ctx -> {
+            RandomizerManager mgr = RandomizerManager.getInstance();
+            for (RandomizerMode m : RandomizerMode.values()) {
+                mgr.getConfig().setEnabled(m, false);
+            }
+            PersistenceManager.saveConfig(ctx.getSource().getServer(), mgr.getConfig());
+            ctx.getSource().sendSuccess(() -> Component.literal("§b§l[Universal Randomizer] §cAll randomizer modes DISABLED!"), true);
+            return 1;
+        }));
+
         // ── Public: help (any player) ─────────────────────────────────────────
         root.then(literal("help").executes(ctx -> {
             String modes = Arrays.stream(RandomizerMode.values())

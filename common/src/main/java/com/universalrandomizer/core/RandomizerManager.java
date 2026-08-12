@@ -116,6 +116,7 @@ public class RandomizerManager {
         if (isEnabled(RandomizerMode.CHEST_LOOT))       generateChestLootMappings();
         if (isEnabled(RandomizerMode.BLOCK_PLACEMENT))  generateBlockPlacementMappings();
         if (isEnabled(RandomizerMode.CROP_DROPS))       generateCropDropMappings();
+        if (isEnabled(RandomizerMode.DEATH_DROPS))      generateDeathDropMappings();
     }
 
     // ── Per-mode generators ───────────────────────────────────────────────────
@@ -143,7 +144,7 @@ public class RandomizerManager {
         long seed = config.getEffectiveSeed(RandomizerMode.CRAFTING);
         List<ResourceLocation> recipeIds = new ArrayList<>(
             server.getRecipeManager().getRecipes().stream()
-                .map(r -> r.getId())
+                .map(r -> r.id())
                 .toList()
         );
         Collections.sort(recipeIds);
@@ -200,6 +201,14 @@ public class RandomizerManager {
         Map<ResourceLocation, ResourceLocation> generated = generateCrossPool(blockPool, itemPool, seed);
         table.loadGenerated(table.getCropDrops(), generated);
         RandomizerLogger.debug("Crop drops: {} mappings", generated.size());
+    }
+
+    private void generateDeathDropMappings() {
+        List<ResourceLocation> itemPool = scanner.getItemPool();
+        long seed = config.getEffectiveSeed(RandomizerMode.DEATH_DROPS);
+        Map<ResourceLocation, ResourceLocation> generated = MappingGenerator.generate(itemPool, seed);
+        table.loadGenerated(table.getDeathDrops(), generated);
+        RandomizerLogger.debug("Death drops: {} mappings", generated.size());
     }
 
     // ──────────────────────────────────────────────────────────────────────────
@@ -287,6 +296,10 @@ public class RandomizerManager {
 
     public ResourceLocation getCropDrop(ResourceLocation blockKey) {
         return table.lookup(table.getCropDrops(), blockKey, sharedRng);
+    }
+
+    public ResourceLocation getDeathDrop(ResourceLocation itemKey) {
+        return table.lookup(table.getDeathDrops(), itemKey, sharedRng);
     }
 
     // ──────────────────────────────────────────────────────────────────────────

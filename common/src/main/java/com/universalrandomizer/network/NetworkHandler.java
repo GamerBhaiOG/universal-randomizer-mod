@@ -113,19 +113,18 @@ public final class NetworkHandler {
 
     /** Client: receives and stores the config mirror. */
     private static void handleSettingsOnClient(SyncSettingsPacket packet) {
-        ClientConfigCache.updateConfig(packet.settingsJson());
+        com.universalrandomizer.client.network.ClientNetworkHandler.handleSettingsOnClient(packet);
         RandomizerLogger.debug("NetworkHandler: received settings packet ({} chars)", packet.settingsJson().length());
     }
 
     /** Client: receives and stores the mapping mirror. */
     private static void handleMappingOnClient(SyncMappingPacket packet) {
-        ClientConfigCache.updateMapping(packet.mappingJson());
+        com.universalrandomizer.client.network.ClientNetworkHandler.handleMappingOnClient(packet);
         RandomizerLogger.debug("NetworkHandler: received mapping packet ({} chars)", packet.mappingJson().length());
     }
 
     /** Client: opens the randomizer setup screen. */
     private static void openSetupScreenOnClient() {
-        net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
-        mc.execute(() -> mc.setScreen(new com.universalrandomizer.client.gui.RandomizerHubScreen()));
+        com.universalrandomizer.client.network.ClientNetworkHandler.openSetupScreenOnClient();
     }
 }

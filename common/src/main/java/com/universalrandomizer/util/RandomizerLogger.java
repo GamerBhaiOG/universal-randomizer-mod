@@ -1,8 +1,6 @@
 package com.universalrandomizer.util;
 
 import com.universalrandomizer.UniversalRandomizerCommon;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -27,14 +25,20 @@ public final class RandomizerLogger {
         String formatted = format(msg, args);
         LOGGER.info("[DEBUG] {}", formatted);
 
-        // Send live debug message to in-game chat when debug mode is enabled
+        // Send live debug message to in-game chat when debug mode is enabled on client
         try {
-            Minecraft client = Minecraft.getInstance();
-            if (client != null && client.player != null) {
-                client.player.sendSystemMessage(Component.literal("§7[Debug] " + formatted));
-            }
+            ClientDebugHelper.sendChatDebug(formatted);
         } catch (Throwable ignored) {
             // Environment may be server-only
+        }
+    }
+
+    private static class ClientDebugHelper {
+        private static void sendChatDebug(String formatted) {
+            net.minecraft.client.Minecraft client = net.minecraft.client.Minecraft.getInstance();
+            if (client != null && client.player != null) {
+                client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("§7[Debug] " + formatted));
+            }
         }
     }
 

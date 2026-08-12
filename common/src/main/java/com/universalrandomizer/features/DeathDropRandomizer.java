@@ -26,8 +26,7 @@ public final class DeathDropRandomizer {
         ResourceLocation itemKey = BuiltInRegistries.ITEM.getKey(vanillaItem.getItem());
         if (itemKey == null) return vanillaItem;
 
-        ResourceLocation targetKey = mgr.getTable().lookup(
-            mgr.getTable().getMiningDrops(), itemKey, new java.util.Random());
+        ResourceLocation targetKey = mgr.getDeathDrop(itemKey);
 
         final ResourceLocation finalKey = targetKey;
         return BuiltInRegistries.ITEM.getOptional(finalKey)

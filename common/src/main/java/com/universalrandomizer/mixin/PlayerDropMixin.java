@@ -3,6 +3,7 @@ package com.universalrandomizer.mixin;
 import com.universalrandomizer.config.RandomizerMode;
 import com.universalrandomizer.core.RandomizerManager;
 import com.universalrandomizer.features.DeathDropRandomizer;
+import com.universalrandomizer.platform.PlatformHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,7 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 /**
- * Mixin on Player to randomize item drops when a player dies.
+ * Mixin on Player to randomize item drops when a player dies (Fabric).
+ * On Forge, player drops are handled via PlayerDropsEvent in ForgeEventHandler.
  */
 @Mixin(Player.class)
 public class PlayerDropMixin {
@@ -24,6 +26,8 @@ public class PlayerDropMixin {
         require = 0
     )
     private ItemStack universalRandomizer$randomizePlayerDeathDrop(ItemStack stack) {
+        if (PlatformHelper.isForge()) return stack;
+
         Player player = (Player) (Object) this;
         if (player.isDeadOrDying() && stack != null && !stack.isEmpty()) {
             RandomizerManager mgr = RandomizerManager.getInstance();

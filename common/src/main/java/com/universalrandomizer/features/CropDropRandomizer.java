@@ -11,7 +11,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 /**
@@ -44,7 +43,7 @@ public final class CropDropRandomizer {
             || block instanceof NetherWartBlock
             || block instanceof CocoaBlock
             || block instanceof SweetBerryBushBlock
-            || block instanceof MelonBlock
+            || block == net.minecraft.world.level.block.Blocks.MELON
             || block instanceof PumpkinBlock
             || block instanceof SugarCaneBlock
             || block instanceof CactusBlock

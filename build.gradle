@@ -12,6 +12,14 @@ allprojects {
     group = project.maven_group
     version = project.mod_version
 
+    apply plugin: "java"
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
     repositories {
         mavenCentral()
         maven { url "https://maven.shedaniel.me/" }

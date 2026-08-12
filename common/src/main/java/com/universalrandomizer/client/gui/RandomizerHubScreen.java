@@ -127,11 +127,17 @@ public class RandomizerHubScreen extends Screen {
     }
 
     private boolean isModeEnabled(RandomizerMode mode) {
+        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
+            return com.universalrandomizer.network.ClientConfigCache.getConfig().isEnabled(mode);
+        }
         RandomizerManager mgr = RandomizerManager.getInstance();
         return mgr != null && mgr.isInitialized() && mgr.isEnabled(mode);
     }
 
     private void setModeEnabledLocal(RandomizerMode mode, boolean enabled) {
+        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
+            com.universalrandomizer.network.ClientConfigCache.getConfig().setEnabled(mode, enabled);
+        }
         RandomizerManager mgr = RandomizerManager.getInstance();
         if (mgr != null && mgr.getConfig() != null) {
             mgr.getConfig().setEnabled(mode, enabled);
@@ -144,7 +150,7 @@ public class RandomizerHubScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics);
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
 
         // Header Title
         graphics.drawCenteredString(this.font, "§b§lUniversal Randomizer Dashboard", this.width / 2, 10, 0xFFFFFF);
