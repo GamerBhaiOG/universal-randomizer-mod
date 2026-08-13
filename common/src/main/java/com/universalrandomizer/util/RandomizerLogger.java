@@ -4,7 +4,8 @@ import com.universalrandomizer.UniversalRandomizerCommon;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Logging utility wrapping the mod's Log4J logger and in-game debug chat notifications.
+ * Logging utility wrapping the mod's Log4J logger.
+ * Completely server-safe with zero client dependencies.
  */
 public final class RandomizerLogger {
 
@@ -24,22 +25,6 @@ public final class RandomizerLogger {
         if (!debugEnabled) return;
         String formatted = format(msg, args);
         LOGGER.info("[DEBUG] {}", formatted);
-
-        // Send live debug message to in-game chat when debug mode is enabled on client
-        try {
-            ClientDebugHelper.sendChatDebug(formatted);
-        } catch (Throwable ignored) {
-            // Environment may be server-only
-        }
-    }
-
-    private static class ClientDebugHelper {
-        private static void sendChatDebug(String formatted) {
-            net.minecraft.client.Minecraft client = net.minecraft.client.Minecraft.getInstance();
-            if (client != null && client.player != null) {
-                client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("§7[Debug] " + formatted));
-            }
-        }
     }
 
     public static void always(String msg, Object... args) { LOGGER.info(msg, args); }

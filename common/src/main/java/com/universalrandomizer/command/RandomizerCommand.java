@@ -78,26 +78,6 @@ public final class RandomizerCommand {
             return 1;
         }));
 
-        root.then(literal("enableall").requires(src -> src.hasPermission(2)).executes(ctx -> {
-            RandomizerManager mgr = RandomizerManager.getInstance();
-            for (RandomizerMode m : RandomizerMode.values()) {
-                mgr.getConfig().setEnabled(m, true);
-            }
-            PersistenceManager.saveConfig(ctx.getSource().getServer(), mgr.getConfig());
-            ctx.getSource().sendSuccess(() -> Component.literal("§b§l[Universal Randomizer] §aAll randomizer modes ENABLED!"), true);
-            return 1;
-        }));
-
-        root.then(literal("disableall").requires(src -> src.hasPermission(2)).executes(ctx -> {
-            RandomizerManager mgr = RandomizerManager.getInstance();
-            for (RandomizerMode m : RandomizerMode.values()) {
-                mgr.getConfig().setEnabled(m, false);
-            }
-            PersistenceManager.saveConfig(ctx.getSource().getServer(), mgr.getConfig());
-            ctx.getSource().sendSuccess(() -> Component.literal("§b§l[Universal Randomizer] §cAll randomizer modes DISABLED!"), true);
-            return 1;
-        }));
-
         // ── Public: help (any player) ─────────────────────────────────────────
         root.then(literal("help").executes(ctx -> {
             String modes = Arrays.stream(RandomizerMode.values())
@@ -152,6 +132,7 @@ public final class RandomizerCommand {
             PersistenceManager.save(ctx.getSource().getServer(),
                 RandomizerManager.getInstance().getConfig(),
                 RandomizerManager.getInstance().getTable());
+            com.universalrandomizer.network.NetworkHandler.syncToAll(ctx.getSource().getServer());
             ctx.getSource().sendSuccess(() -> Component.literal(
                 "§a[Universal Randomizer] All mappings reset and regenerated."), true);
             return 1;
@@ -168,6 +149,7 @@ public final class RandomizerCommand {
                 RandomizerManager.getInstance().getConfig().setDebugMode(true);
                 PersistenceManager.saveConfig(ctx.getSource().getServer(),
                     RandomizerManager.getInstance().getConfig());
+                com.universalrandomizer.network.NetworkHandler.syncToAll(ctx.getSource().getServer());
                 ctx.getSource().sendSuccess(() ->
                     Component.literal("§e[Universal Randomizer] Debug mode ON."), false);
                 return 1;
@@ -176,6 +158,7 @@ public final class RandomizerCommand {
                 RandomizerManager.getInstance().getConfig().setDebugMode(false);
                 PersistenceManager.saveConfig(ctx.getSource().getServer(),
                     RandomizerManager.getInstance().getConfig());
+                com.universalrandomizer.network.NetworkHandler.syncToAll(ctx.getSource().getServer());
                 ctx.getSource().sendSuccess(() ->
                     Component.literal("§e[Universal Randomizer] Debug mode OFF."), false);
                 return 1;
@@ -214,6 +197,7 @@ public final class RandomizerCommand {
         if (enabled) {
             mgr.reset();
         }
+        com.universalrandomizer.network.NetworkHandler.syncToAll(src.getServer());
         src.sendSuccess(() -> Component.literal(
             "§a[Universal Randomizer] " + mode.getDisplayName()
             + " " + (enabled ? "§aENABLED" : "§cDISABLED") + "§r."), true);
@@ -225,6 +209,7 @@ public final class RandomizerCommand {
         mgr.getConfig().getMode(mode).setRandomType(ModeConfig.RandomType.SEED_BASED);
         PersistenceManager.saveConfig(src.getServer(), mgr.getConfig());
         mgr.reset();
+        com.universalrandomizer.network.NetworkHandler.syncToAll(src.getServer());
         src.sendSuccess(() -> Component.literal(
             "§a[Universal Randomizer] " + mode.getDisplayName()
             + " seed set to §f" + seed + "§a."), true);
@@ -236,6 +221,7 @@ public final class RandomizerCommand {
             RandomizerManager.getInstance().getConfig().getMode(mode).setRandomType(type);
             PersistenceManager.saveConfig(src.getServer(),
                 RandomizerManager.getInstance().getConfig());
+            com.universalrandomizer.network.NetworkHandler.syncToAll(src.getServer());
             src.sendSuccess(() -> Component.literal(
                 "§a[Universal Randomizer] " + mode.getDisplayName()
                 + " type set to §f" + type + "§a."), true);

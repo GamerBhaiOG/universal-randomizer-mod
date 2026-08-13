@@ -17,14 +17,14 @@ public class RandomizerConfig {
     private final Map<RandomizerMode, ModeConfig> modes = new EnumMap<>(RandomizerMode.class);
 
     /**
-    /**
-     * Creates a config with all Randomizer modes enabled by default.
+     * Creates a config with only Random Mining Drops enabled by default for optimal performance.
      */
     public RandomizerConfig() {
         for (RandomizerMode mode : RandomizerMode.values()) {
             modes.put(mode, new ModeConfig());
-            setEnabled(mode, true);
+            setEnabled(mode, false);
         }
+        setEnabled(RandomizerMode.MINING_DROPS, true);
     }
 
     public ModeConfig getMode(RandomizerMode mode) {

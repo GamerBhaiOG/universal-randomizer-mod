@@ -4,30 +4,37 @@ plugins {
 
 architectury {
     platformSetupLoomIde()
-    neoForge()
+    forge()
 }
 
-
+loom {
+    forge {
+        mixinConfigs = [
+            "universalrandomizer.mixins.json",
+            "universalrandomizer.forge.mixins.json"
+        ]
+    }
+}
 
 configurations {
     common
     shadowCommon
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentNeoForge.extendsFrom common
+    developmentForge.extendsFrom common
 }
 
 dependencies {
-    neoForge "net.neoforged:neoforge:${project.neoforge_version}"
+    forge "net.minecraftforge:forge:${project.forge_version}"
 
-    // Architectury API — NeoForge build
-    modApi "dev.architectury:architectury-neoforge:${project.architectury_version}"
+    // Architectury API — Forge build
+    modApi "dev.architectury:architectury-forge:${project.architectury_version}"
 
-    // Cloth Config — NeoForge build
-    modApi("me.shedaniel.cloth:cloth-config-neoforge:${project.cloth_config_version}")
+    // Cloth Config — Forge build
+    modApi("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive = false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
 
 processResources {

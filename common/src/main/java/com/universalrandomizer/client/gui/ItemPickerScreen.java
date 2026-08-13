@@ -96,7 +96,7 @@ public class ItemPickerScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        this.renderBackground(graphics);
 
         int centerX = this.width / 2;
         graphics.drawCenteredString(this.font, "§b§l" + titleText, centerX, 12, 0xFFFFFF);

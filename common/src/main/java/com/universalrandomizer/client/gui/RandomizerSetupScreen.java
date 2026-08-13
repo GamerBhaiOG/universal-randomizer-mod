@@ -1,4 +1,4 @@
-package com.universalrandomizer.gui;
+package com.universalrandomizer.client.gui;
 
 import com.universalrandomizer.config.RandomizerConfig;
 import com.universalrandomizer.config.RandomizerMode;
@@ -119,7 +119,7 @@ public class RandomizerSetupScreen extends Screen {
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         // Background
-        renderBackground(graphics, mouseX, mouseY, delta);
+        renderBackground(graphics);
 
         int panelX = (width - PANEL_WIDTH) / 2;
         int panelY = (height - PANEL_HEIGHT) / 2;
@@ -229,8 +229,8 @@ public class RandomizerSetupScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        scrollOffset = Math.max(0, scrollOffset - (int)(scrollY * ROW_HEIGHT));
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        scrollOffset = Math.max(0, scrollOffset - (int)(delta * ROW_HEIGHT));
         return true;
     }
 

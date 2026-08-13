@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[20.4,)"
+loaderVersion="[47,)"
 license="MIT"
 issueTrackerURL="https://github.com/yourname/universal-randomizer/issues"
 
@@ -23,29 +23,29 @@ issueTrackerURL="https://github.com/yourname/universal-randomizer/issues"
     config="universalrandomizer.forge.mixins.json"
 
 [[dependencies.universalrandomizer]]
-    modId="neoforge"
-    type="required"
-    versionRange="[20.4.0,)"
+    modId="forge"
+    mandatory=true
+    versionRange="[47.2.0,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.universalrandomizer]]
     modId="minecraft"
-    type="required"
-    versionRange="[1.20.4,1.21)"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.universalrandomizer]]
     modId="architectury"
-    type="required"
-    versionRange="[11.0.0,)"
+    mandatory=true
+    versionRange="[9.1.12,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.universalrandomizer]]
     modId="cloth_config"
-    type="required"
-    versionRange="[13.0.0,)"
+    mandatory=true
+    versionRange="[11.1.136,)"
     ordering="NONE"
     side="BOTH"

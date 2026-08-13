@@ -1,5 +1,7 @@
 package com.universalrandomizer.client.gui;
 
+import com.universalrandomizer.config.RandomizerConfig;
+import com.universalrandomizer.network.ClientConfigCache;
 import com.universalrandomizer.config.RandomizerMode;
 import com.universalrandomizer.core.RandomizerManager;
 import net.minecraft.client.Minecraft;
@@ -127,20 +129,14 @@ public class RandomizerHubScreen extends Screen {
     }
 
     private boolean isModeEnabled(RandomizerMode mode) {
-        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
-            return com.universalrandomizer.network.ClientConfigCache.getConfig().isEnabled(mode);
-        }
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        return mgr != null && mgr.isInitialized() && mgr.isEnabled(mode);
+        RandomizerConfig config = ClientConfigCache.getEffectiveConfig();
+        return config != null && config.isEnabled(mode);
     }
 
     private void setModeEnabledLocal(RandomizerMode mode, boolean enabled) {
-        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
-            com.universalrandomizer.network.ClientConfigCache.getConfig().setEnabled(mode, enabled);
-        }
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        if (mgr != null && mgr.getConfig() != null) {
-            mgr.getConfig().setEnabled(mode, enabled);
+        RandomizerConfig config = ClientConfigCache.getEffectiveConfig();
+        if (config != null) {
+            config.setEnabled(mode, enabled);
         }
     }
 
@@ -150,7 +146,7 @@ public class RandomizerHubScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        this.renderBackground(graphics);
 
         // Header Title
         graphics.drawCenteredString(this.font, "§b§lUniversal Randomizer Dashboard", this.width / 2, 10, 0xFFFFFF);

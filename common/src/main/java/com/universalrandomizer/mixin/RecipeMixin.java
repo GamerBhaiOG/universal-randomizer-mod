@@ -29,7 +29,7 @@ public interface RecipeMixin {
         ItemStack original = cir.getReturnValue();
         if (original.isEmpty()) return;
 
-        ItemStack randomized = CraftingRandomizer.applyOutput(this, original);
+        ItemStack randomized = CraftingRandomizer.applyOutput((Recipe<?>) this, original);
         if (!randomized.equals(original)) {
             cir.setReturnValue(randomized);
         }

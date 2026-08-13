@@ -1,8 +1,9 @@
 package com.universalrandomizer.client.gui;
 
 import com.universalrandomizer.config.ModeConfig;
+import com.universalrandomizer.config.RandomizerConfig;
 import com.universalrandomizer.config.RandomizerMode;
-import com.universalrandomizer.core.RandomizerManager;
+import com.universalrandomizer.network.ClientConfigCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -86,31 +87,22 @@ public class ModeSettingsScreen extends Screen {
     }
 
     private boolean isModeEnabled() {
-        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
-            return com.universalrandomizer.network.ClientConfigCache.getConfig().isEnabled(mode);
-        }
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        return mgr != null && mgr.isInitialized() && mgr.isEnabled(mode);
+        RandomizerConfig config = ClientConfigCache.getEffectiveConfig();
+        return config != null && config.isEnabled(mode);
     }
 
     private String getModeType() {
-        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
-            return com.universalrandomizer.network.ClientConfigCache.getConfig().getMode(mode).getRandomType().name();
-        }
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        if (mgr != null && mgr.isInitialized()) {
-            return mgr.getConfig().getMode(mode).getRandomType().name();
+        RandomizerConfig config = ClientConfigCache.getEffectiveConfig();
+        if (config != null && config.getMode(mode) != null) {
+            return config.getMode(mode).getRandomType().name();
         }
         return "SEED_BASED";
     }
 
     private long getModeSeed() {
-        if (com.universalrandomizer.network.ClientConfigCache.hasConfig()) {
-            return com.universalrandomizer.network.ClientConfigCache.getConfig().getMode(mode).getSeed();
-        }
-        RandomizerManager mgr = RandomizerManager.getInstance();
-        if (mgr != null && mgr.isInitialized()) {
-            return mgr.getConfig().getMode(mode).getSeed();
+        RandomizerConfig config = ClientConfigCache.getEffectiveConfig();
+        if (config != null && config.getMode(mode) != null) {
+            return config.getMode(mode).getSeed();
         }
         return 0L;
     }
@@ -127,7 +119,7 @@ public class ModeSettingsScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        this.renderBackground(graphics);
 
         graphics.drawCenteredString(this.font, "§b§lConfigure: " + mode.getDisplayName(), this.width / 2, 15, 0xFFFFFF);
         graphics.drawCenteredString(this.font, "§7" + mode.getDescription(), this.width / 2, 30, 0xAAAAAA);

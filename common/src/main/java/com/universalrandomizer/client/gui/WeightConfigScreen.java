@@ -115,7 +115,7 @@ public class WeightConfigScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        this.renderBackground(graphics);
 
         int centerX = this.width / 2;
 

@@ -27,9 +27,6 @@ public final class UniversalRandomizerCommon {
         LOGGER.info("{} is initializing on {}...", MOD_NAME,
             com.universalrandomizer.platform.PlatformHelper.getPlatformName());
 
-        // Register networking packets
-        NetworkHandler.registerPackets();
-
         // Register commands
         CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) ->
             RandomizerCommand.register(dispatcher));

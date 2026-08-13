@@ -26,6 +26,6 @@ public final class PlatformHelperImpl {
     }
 
     public static String getPlatformName() {
-        return "NeoForge 1.20.4";
+        return "Forge " + net.minecraftforge.versions.forge.ForgeVersion.getVersion();
     }
 }

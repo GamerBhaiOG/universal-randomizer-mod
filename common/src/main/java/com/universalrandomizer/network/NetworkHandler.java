@@ -23,48 +23,7 @@ public final class NetworkHandler {
 
     private NetworkHandler() {}
 
-    // ── Packet IDs ─────────────────────────────────────────────────────────────
-
-    // These are declared on the packet records themselves
-
-    // ──────────────────────────────────────────────────────────────────────────
-
-    /**
-     * Registers all S→C packet receivers on the client.
-     * Call during common initialization (both sides).
-     */
-    public static void registerPackets() {
-        // S→C: settings sync
-        NetworkManager.registerReceiver(
-            NetworkManager.Side.S2C,
-            SyncSettingsPacket.ID,
-            (buf, context) -> {
-                SyncSettingsPacket packet = SyncSettingsPacket.decode(buf);
-                context.queue(() -> handleSettingsOnClient(packet));
-            }
-        );
-
-        // S→C: mapping sync
-        NetworkManager.registerReceiver(
-            NetworkManager.Side.S2C,
-            SyncMappingPacket.ID,
-            (buf, context) -> {
-                SyncMappingPacket packet = SyncMappingPacket.decode(buf);
-                context.queue(() -> handleMappingOnClient(packet));
-            }
-        );
-
-        // S→C: open setup screen request
-        NetworkManager.registerReceiver(
-            NetworkManager.Side.S2C,
-            OPEN_SETUP_SCREEN_ID,
-            (buf, context) -> context.queue(NetworkHandler::openSetupScreenOnClient)
-        );
-
-        RandomizerLogger.debug("NetworkHandler: packets registered.");
-    }
-
-    private static final net.minecraft.resources.ResourceLocation OPEN_SETUP_SCREEN_ID =
+    public static final net.minecraft.resources.ResourceLocation OPEN_SETUP_SCREEN_ID =
         new net.minecraft.resources.ResourceLocation("universalrandomizer", "open_setup");
 
     // ──────────────────────────────────────────────────────────────────────────
@@ -107,24 +66,5 @@ public final class NetworkHandler {
     public static void sendSetupScreen(ServerPlayer player) {
         FriendlyByteBuf buf = new FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
         NetworkManager.sendToPlayer(player, OPEN_SETUP_SCREEN_ID, buf);
-    }
-
-    // ── Client-side handlers ───────────────────────────────────────────────────
-
-    /** Client: receives and stores the config mirror. */
-    private static void handleSettingsOnClient(SyncSettingsPacket packet) {
-        com.universalrandomizer.client.network.ClientNetworkHandler.handleSettingsOnClient(packet);
-        RandomizerLogger.debug("NetworkHandler: received settings packet ({} chars)", packet.settingsJson().length());
-    }
-
-    /** Client: receives and stores the mapping mirror. */
-    private static void handleMappingOnClient(SyncMappingPacket packet) {
-        com.universalrandomizer.client.network.ClientNetworkHandler.handleMappingOnClient(packet);
-        RandomizerLogger.debug("NetworkHandler: received mapping packet ({} chars)", packet.mappingJson().length());
-    }
-
-    /** Client: opens the randomizer setup screen. */
-    private static void openSetupScreenOnClient() {
-        com.universalrandomizer.client.network.ClientNetworkHandler.openSetupScreenOnClient();
     }
 }

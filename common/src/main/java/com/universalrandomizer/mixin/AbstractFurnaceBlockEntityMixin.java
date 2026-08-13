@@ -6,7 +6,7 @@ import com.universalrandomizer.features.SmeltingRandomizer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,14 +27,14 @@ public class AbstractFurnaceBlockEntityMixin {
         remap = true,
         require = 0
     )
-    private void universalRandomizer$onBurn(RegistryAccess registryAccess, RecipeHolder<?> recipe, NonNullList<ItemStack> items, int maxStackSize, CallbackInfoReturnable<Boolean> cir) {
+    private static void universalRandomizer$onBurn(RegistryAccess registryAccess, Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize, CallbackInfoReturnable<Boolean> cir) {
         RandomizerManager mgr = RandomizerManager.getInstance();
         if (!mgr.isInitialized() || !mgr.isEnabled(RandomizerMode.SMELTING)) return;
 
         if (recipe != null && items != null && items.size() > 2) {
             ItemStack input = items.get(0);
             if (!input.isEmpty()) {
-                ItemStack vanillaOutput = recipe.value().getResultItem(registryAccess);
+                ItemStack vanillaOutput = recipe.getResultItem(registryAccess);
                 if (!vanillaOutput.isEmpty()) {
                     ItemStack randomizedOutput = SmeltingRandomizer.randomizeSmeltingResult(vanillaOutput);
                     ItemStack currentResultSlot = items.get(2);

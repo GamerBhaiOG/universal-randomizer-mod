@@ -45,4 +45,19 @@ public final class ClientConfigCache {
     public static RandomizerConfig getConfig() { return clientConfig; }
     public static MappingTable getTable()      { return clientTable; }
     public static boolean hasConfig()          { return clientConfig != null; }
+
+    /**
+     * Resolves the active RandomizerConfig on either client or server.
+     * Checks client mirror first, then server singleton fallback.
+     */
+    public static RandomizerConfig getEffectiveConfig() {
+        if (hasConfig()) {
+            return getConfig();
+        }
+        com.universalrandomizer.core.RandomizerManager mgr = com.universalrandomizer.core.RandomizerManager.getInstance();
+        if (mgr != null && mgr.isInitialized()) {
+            return mgr.getConfig();
+        }
+        return null;
+    }
 }

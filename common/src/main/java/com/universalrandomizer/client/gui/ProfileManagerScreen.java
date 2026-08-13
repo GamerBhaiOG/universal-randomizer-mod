@@ -87,7 +87,7 @@ public class ProfileManagerScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+        this.renderBackground(graphics);
 
         graphics.drawCenteredString(this.font, "§b§lPreset & Custom Profiles", this.width / 2, 15, 0xFFFFFF);
         graphics.drawCenteredString(this.font, "§7Click a working preset to instantly update GUI mode options!", this.width / 2, 28, 0xAAAAAA);
